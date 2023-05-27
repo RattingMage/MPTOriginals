@@ -30,7 +30,7 @@ class RegisterTokenSerializer(serializers.ModelSerializer):
 
     first_name = serializers.CharField(required=True)
     last_name = serializers.CharField(required=True)
-    phone_number = serializers.CharField(required=True)
+    phone_number = serializers.CharField(required=False)
     code = serializers.CharField(required=False)
     tokens = serializers.SerializerMethodField("getting_token", read_only=True)
 
