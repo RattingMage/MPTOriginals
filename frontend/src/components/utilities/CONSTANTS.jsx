@@ -1,5 +1,5 @@
 // export const BASE_API_URL = window.location.origin + "/api/";  //  Use this for if you wanna serve it Django
-export const BASE_API_URL = "http://localhost:8000/api/";
+export const BASE_API_URL = "http://46.243.201.240:8000/api/";
 // export const BASE_API_URL = "https://django-group-call-api.herokuapp.com/api/";   // Use this for stand-alone app
 export const webSocketUrl = () => {
   let websocketProtocol;
@@ -9,7 +9,7 @@ export const webSocketUrl = () => {
     websocketProtocol = "ws://";
   }
   // return websocketProtocol + window.location.host + "/video/"; //  Use this for if you wanna serve it Django
-  return websocketProtocol + "localhost:8000/video/";
+  return websocketProtocol + "46.243.201.240:8000/video/";
   // return websocketProtocol + "django-group-call-api.herokuapp.com/video/";        // Use this for stand-alone app
 };
 
