@@ -43,6 +43,12 @@ def verify_code(request):
             return HttpResponse(User.DoesNotExist, status=status.HTTP_400_BAD_REQUEST)
 
 
+@csrf_exempt
+def get_user(request):
+    if request.method == 'POST':
+        return request.user
+
+
 class TokenObtainPairView(OriginalObtainPairView):
     """
     Replacing old 'serializer_class' with modified serializer class
