@@ -45,8 +45,9 @@ def verify_code(request):
 
 @csrf_exempt
 def get_user(request):
-    if request.method == 'POST':
-        return request.user
+    if request.method == 'POST' and request.user.is_authenticated:
+        return Response(request.user, status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 class TokenObtainPairView(OriginalObtainPairView):
