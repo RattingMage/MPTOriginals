@@ -1,4 +1,4 @@
-import axios from "frontend/src/components/utilities/axios.jsx";
+import axios from "axios";
 
 // Utility functions, constants, objects...
 import { BASE_API_URL } from "./CONSTANTS.jsx";

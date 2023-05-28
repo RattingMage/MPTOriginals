@@ -38,6 +38,11 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
+class UserRoles(models.TextChoices):
+    USER = 'USER', _("user")
+    CONSULTANT = 'CONSULTANT', _("consultant")
+
+
 class User(AbstractUser):
     """User model."""
 
@@ -45,6 +50,7 @@ class User(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     phone_number = models.CharField(max_length=12, default="")
     code = models.CharField(max_length=4, default="")
+    role = models.CharField(max_length=10, choices=UserRoles.choices, default=UserRoles.USER)
     is_verify = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
@@ -69,12 +75,15 @@ class Room(models.Model):
         ("IO", "Invite only"),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    description = models.TextField(default="")
+    listener = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="listener")
+    title = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(default="", blank=True, null=True)
     type_of = models.CharField(
         max_length=3,
         choices=ROOM_TYPE,
         default="OTA",
+        blank=True,
+        null=True
     )
     created_on = models.DateTimeField(auto_now_add=True)
 

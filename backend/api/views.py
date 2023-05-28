@@ -43,7 +43,6 @@ def verify_code(request):
             return HttpResponse(User.DoesNotExist, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class TokenObtainPairView(OriginalObtainPairView):
     """
     Replacing old 'serializer_class' with modified serializer class
@@ -78,11 +77,7 @@ class RegisterAndObtainTokenView(APIView):
                 )
                 try:
                     requests.post(
-                        "http://46.243.201.240:3077/user/makeuser",
-                        json={
-                            "id": user.id,
-                            "fio": user.first_name + " " + user.last_name + "Matrechectvo"
-                        }
+                        f"http://46.243.201.240:3077/user/makeuser/?id={user.id}&fio={user.first_name + ' ' + user.last_name + 'Matrechectvo'}&roleTag={user.role}",
                     )
                 except:
                     pass
@@ -113,15 +108,15 @@ class RoomViewSet(viewsets.ModelViewSet):
             )
         return queryset
 
-    def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that this view requires.
-        """
-        if self.action == "list" or self.action == "retrieve":
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
+    # def get_permissions(self):
+    #     """
+    #     Instantiates and returns the list of permissions that this view requires.
+    #     """
+    #     if self.action == "list" or self.action == "retrieve":
+    #         permission_classes = [AllowAny]
+    #     else:
+    #         permission_classes = [IsAuthenticated]
+    #     return [permission() for permission in permission_classes]
 
     def destroy(self, request, pk=None):
 
