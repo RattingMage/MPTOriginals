@@ -43,11 +43,13 @@ def verify_code(request):
             return HttpResponse(User.DoesNotExist, status=status.HTTP_400_BAD_REQUEST)
 
 
-@csrf_exempt
-def get_user(request):
-    if request.method == 'POST' and request.user.is_authenticated:
-        return Response(request.user, status=status.HTTP_200_OK)
-    return Response(status=status.HTTP_401_UNAUTHORIZED)
+class UserView(APIView):
+    def get(self, request):
+        if request.user.is_authenticated:
+            response = {"id": request.user.id}
+            return Response(response, status=status.HTTP_200_OK)
+        else:
+            return HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
 
 
 class TokenObtainPairView(OriginalObtainPairView):
